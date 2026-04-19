@@ -280,10 +280,10 @@ mark{background:var(--g2);padding:0 2px;border-radius:2px}
   </div>
   <div class="nav-section">
     <div class="nav-label">Main</div>
-    <div class="nav-item" onclick="showSection(&#39;dashboard&#39;)" id="nav-dashboard"><span class="nav-icon">🏠</span>Dashboard</div>
+    <div class="nav-item active" onclick="showSection('dashboard')" id="nav-dashboard"><span class="nav-icon">🏠</span>Dashboard</div>
     <div class="nav-item" onclick="showSection(&#39;students&#39;)" id="nav-students"><span class="nav-icon">👥</span>Students</div>
     <div class="nav-item" onclick="showSection(&#39;fees&#39;)" id="nav-fees"><span class="nav-icon">💰</span>Fee Management</div>
-    <div class="nav-item active" onclick="showSection(&#39;rooms&#39;)" id="nav-rooms"><span class="nav-icon">🛏</span>Rooms</div>
+    <div class="nav-item" onclick="showSection('rooms')" id="nav-rooms"><span class="nav-icon">🛏</span>Rooms</div>
   </div>
   <div class="nav-section">
     <div class="nav-label">Finance</div>
@@ -302,14 +302,14 @@ mark{background:var(--g2);padding:0 2px;border-radius:2px}
   <div class="topbar">
     <div class="topbar-left">
       <button class="hamburger" onclick="toggleSidebar()">☰</button>
-      <h1 id="page-title">Rooms</h1>
+      <h1 id="page-title">Dashboard</h1>
     </div>
     <div style="display:flex;gap:8px" id="topbar-btns"></div>
   </div>
   <div class="content" id="main-content">
 
 <!-- ===== DASHBOARD ===== -->
-<div class="section" id="sec-dashboard">
+<div class="section active" id="sec-dashboard">
   <div class="stats-grid">
     <div class="stat-card"><div class="stat-icon">👥</div><div class="stat-num" id="d-students">0</div><div class="stat-label">Students</div></div>
     <div class="stat-card"><div class="stat-icon">🛏</div><div class="stat-num blue" id="d-rooms">0/20</div><div class="stat-label">Rooms Occupied</div></div>
@@ -406,7 +406,7 @@ mark{background:var(--g2);padding:0 2px;border-radius:2px}
 </div>
 
 <!-- ===== ROOMS ===== -->
-<div class="section active" id="sec-rooms">
+<div class="section" id="sec-rooms">
   <div class="tab-bar">
     <button class="tab" onclick="switchTab(this,&#39;room-tab&#39;,&#39;room-view&#39;)">Room View</button>
     <button class="tab active" onclick="switchTab(this,&#39;room-tab&#39;,&#39;room-blocks&#39;)">Manage Blocks</button>
@@ -970,10 +970,10 @@ mark{background:var(--g2);padding:0 2px;border-radius:2px}
 <!-- MOBILE BOTTOM NAV -->
 <div class="mobile-nav">
   <div class="mobile-nav-inner">
-    <div class="mobile-nav-item" id="mnav-dashboard" onclick="showSection(&#39;dashboard&#39;)"><div class="mobile-nav-icon">🏠</div><div class="mobile-nav-label">Home</div></div>
+    <div class="mobile-nav-item active" id="mnav-dashboard" onclick="showSection('dashboard')"><div class="mobile-nav-icon">🏠</div><div class="mobile-nav-label">Home</div></div>
     <div class="mobile-nav-item" id="mnav-students" onclick="showSection(&#39;students&#39;)"><div class="mobile-nav-icon">👥</div><div class="mobile-nav-label">Students</div></div>
     <div class="mobile-nav-item" id="mnav-fees" onclick="showSection(&#39;fees&#39;)"><div class="mobile-nav-icon">💰</div><div class="mobile-nav-label">Fees</div></div>
-    <div class="mobile-nav-item active" id="mnav-rooms" onclick="showSection(&#39;rooms&#39;)"><div class="mobile-nav-icon">🛏</div><div class="mobile-nav-label">Rooms</div></div>
+    <div class="mobile-nav-item" id="mnav-rooms" onclick="showSection('rooms')"><div class="mobile-nav-icon">🛏</div><div class="mobile-nav-label">Rooms</div></div>
     <div class="mobile-nav-item" id="mnav-more" onclick="toggleMobileMenu()"><div class="mobile-nav-icon">⋯</div><div class="mobile-nav-label">More</div></div>
   </div>
 </div>
