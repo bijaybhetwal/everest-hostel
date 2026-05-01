@@ -161,6 +161,13 @@ tr:hover td{background:#fafff8}
 .search-box input{padding-left:32px}
 .search-box::before{content:'🔍';position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:13px;z-index:1}
 
+/* DUAL DATE (AD + BS companion) */
+.dual-date-row{display:flex;gap:6px;align-items:center;margin-top:4px}
+.dual-date-row .form-input{flex:1;min-width:0}
+.dual-date-row .bs-input{flex:1;min-width:0;font-size:12px;background:#f9fdf9;border-color:var(--g2)}
+.bs-badge{font-size:10px;font-weight:700;background:var(--g1);color:var(--g4);border:1px solid var(--g2);border-radius:5px;padding:2px 6px;white-space:nowrap;flex-shrink:0}
+.bs-hint{font-size:10px;color:var(--b4);margin-top:2px;min-height:13px;padding-left:2px}
+
 /* TAGS */
 .tag{display:inline-flex;align-items:center;gap:4px;background:var(--g1);color:var(--g4);padding:3px 9px;border-radius:20px;font-size:12px;font-weight:600;margin:2px}
 .tag-close{cursor:pointer;font-size:14px;line-height:1;opacity:0.7}.tag-close:hover{opacity:1}
@@ -1015,8 +1022,24 @@ mark{background:var(--g2);padding:0 2px;border-radius:2px}
   </div>
   <div class="section-subtitle">Dates</div>
   <div class="form-grid">
-    <div class="form-group"><label class="form-label">Admission Date</label><input class="form-input" id="s-admission" type="date"></div>
-    <div class="form-group"><label class="form-label">Fee Start Date</label><input class="form-input" id="s-feedate" type="date"></div>
+    <div class="form-group">
+      <label class="form-label">Admission Date</label>
+      <input class="form-input" id="s-admission" type="date" oninput="syncAdToBs('s-admission','s-admission-bs','s-admission-hint')">
+      <div class="dual-date-row">
+        <span class="bs-badge">BS</span>
+        <input class="form-input bs-input" id="s-admission-bs" type="text" placeholder="YYYY-MM-DD" maxlength="10" oninput="syncBsToAd('s-admission-bs','s-admission','s-admission-hint')">
+      </div>
+      <div class="bs-hint" id="s-admission-hint"></div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Fee Start Date</label>
+      <input class="form-input" id="s-feedate" type="date" oninput="syncAdToBs('s-feedate','s-feedate-bs','s-feedate-hint')">
+      <div class="dual-date-row">
+        <span class="bs-badge">BS</span>
+        <input class="form-input bs-input" id="s-feedate-bs" type="text" placeholder="YYYY-MM-DD" maxlength="10" oninput="syncBsToAd('s-feedate-bs','s-feedate','s-feedate-hint')">
+      </div>
+      <div class="bs-hint" id="s-feedate-hint"></div>
+    </div>
   </div>
   <div class="form-group"><label class="form-label">Address</label><input class="form-input" id="s-address" placeholder="Home address"></div>
   <div class="form-grid">
@@ -1069,7 +1092,15 @@ mark{background:var(--g2);padding:0 2px;border-radius:2px}
     <div class="form-group"><label class="form-label">Payment Method</label><select class="form-input" id="fee-method"><option>Cash</option><option>Online Transfer</option><option>Cheque</option><option>Other</option></select></div>
   </div>
   <div class="form-grid">
-    <div class="form-group"><label class="form-label">Payment Date *</label><input class="form-input" id="fee-date" type="date"></div>
+    <div class="form-group">
+      <label class="form-label">Payment Date *</label>
+      <input class="form-input" id="fee-date" type="date" oninput="syncAdToBs('fee-date','fee-date-bs','fee-date-hint')">
+      <div class="dual-date-row">
+        <span class="bs-badge">BS</span>
+        <input class="form-input bs-input" id="fee-date-bs" type="text" placeholder="YYYY-MM-DD" maxlength="10" oninput="syncBsToAd('fee-date-bs','fee-date','fee-date-hint')">
+      </div>
+      <div class="bs-hint" id="fee-date-hint"></div>
+    </div>
     <div class="form-group"><label class="form-label">Notes</label><input class="form-input" id="fee-notes" placeholder="Optional notes"></div>
   </div>
   <div class="alert alert-blue">💡 If paid amount + advance exceeds fee, extra is stored as advance for next month.</div>
@@ -1158,7 +1189,15 @@ mark{background:var(--g2);padding:0 2px;border-radius:2px}
   <div class="form-group"><label class="form-label">Sub-category</label><select class="form-input" id="exp-subcat"><option value="">Select sub-category...</option></select></div>
   <div class="form-grid">
     <div class="form-group"><label class="form-label">Amount (Rs) *</label><input class="form-input" id="exp-amt" type="number" placeholder="Amount"></div>
-    <div class="form-group"><label class="form-label">Date *</label><input class="form-input" id="exp-date" type="date"></div>
+    <div class="form-group">
+      <label class="form-label">Date *</label>
+      <input class="form-input" id="exp-date" type="date" oninput="syncAdToBs('exp-date','exp-date-bs','exp-date-hint')">
+      <div class="dual-date-row">
+        <span class="bs-badge">BS</span>
+        <input class="form-input bs-input" id="exp-date-bs" type="text" placeholder="YYYY-MM-DD" maxlength="10" oninput="syncBsToAd('exp-date-bs','exp-date','exp-date-hint')">
+      </div>
+      <div class="bs-hint" id="exp-date-hint"></div>
+    </div>
   </div>
   <div class="form-group"><label class="form-label">Description</label><textarea class="form-input" id="exp-desc" placeholder="Details about this expense" rows="2"></textarea></div>
   <div class="modal-footer">
@@ -1179,7 +1218,15 @@ mark{background:var(--g2);padding:0 2px;border-radius:2px}
     <div class="form-group"><label class="form-label">Unit</label><input class="form-input" id="ord-unit" placeholder="kg, pcs, litre..."></div>
     <div class="form-group"><label class="form-label">Vendor</label><input class="form-input" id="ord-vendor" placeholder="Vendor name"></div>
     <div class="form-group"><label class="form-label">Amount (Rs)</label><input class="form-input" id="ord-amt" type="number" placeholder="Total amount"></div>
-    <div class="form-group"><label class="form-label">Date</label><input class="form-input" id="ord-date" type="date"></div>
+    <div class="form-group">
+      <label class="form-label">Date</label>
+      <input class="form-input" id="ord-date" type="date" oninput="syncAdToBs('ord-date','ord-date-bs','ord-date-hint')">
+      <div class="dual-date-row">
+        <span class="bs-badge">BS</span>
+        <input class="form-input bs-input" id="ord-date-bs" type="text" placeholder="YYYY-MM-DD" maxlength="10" oninput="syncBsToAd('ord-date-bs','ord-date','ord-date-hint')">
+      </div>
+      <div class="bs-hint" id="ord-date-hint"></div>
+    </div>
   </div>
   <div class="form-group"><label class="form-label">Status</label>
     <select class="form-input" id="ord-status"><option>Pending</option><option>Ordered</option><option>Received</option><option>Cancelled</option></select>
@@ -1289,7 +1336,20 @@ function switchTab(el,groupId,targetId){
 function openModal(id){
   document.getElementById(id).classList.add('open');
   populateAllSelects();
-  if(id==='modal-fee'){let fd=document.getElementById('fee-date');if(fd&&!fd.value)fd.value=today();}
+  // Auto-fill today into date fields that are empty, then sync BS
+  const datePairs={
+    'modal-fee':    [['fee-date','fee-date-bs','fee-date-hint']],
+    'modal-expense':[['exp-date','exp-date-bs','exp-date-hint']],
+    'modal-order':  [['ord-date','ord-date-bs','ord-date-hint']],
+    'modal-student':[['s-admission','s-admission-bs','s-admission-hint'],
+                     ['s-feedate','s-feedate-bs','s-feedate-hint']],
+  };
+  const pairs=datePairs[id]||[];
+  pairs.forEach(([adId,bsId,hintId])=>{
+    let adEl=document.getElementById(adId);
+    if(adEl&&!adEl.value)adEl.value=today();
+    syncAdToBs(adId,bsId,hintId);
+  });
 }
 function closeModal(id){document.getElementById(id).classList.remove('open')}
 
@@ -1341,6 +1401,9 @@ function saveStudent(){
     document.getElementById('student-modal-title').textContent='Add New Student';
     document.getElementById('student-save-btn').textContent='Save Student';
     ['s-name','s-age','s-dob','s-dob-np','s-phone','s-cit','s-fee','s-address','s-admission','s-feedate','s-pname','s-pocc','s-pphone','s-prel'].forEach(id=>document.getElementById(id).value='');
+    ['s-dob-np-hint','s-admission-bs','s-admission-hint','s-feedate-bs','s-feedate-hint'].forEach(id=>{let e=document.getElementById(id);if(e)e.textContent='';});
+    document.getElementById('s-admission-bs').value='';
+    document.getElementById('s-feedate-bs').value='';
     ['s-photo-prev','s-cit-prev'].forEach(id=>{let e=document.getElementById(id);e.style.display='none';e.src=''});
     renderStudents();renderDashboard();
   }
@@ -1373,6 +1436,10 @@ function editStudent(id){
   if(s.citPhoto){cp.src=s.citPhoto;cp.style.display='block';}else{cp.src='';cp.style.display='none';}
   closeModal('modal-view-student');
   openModal('modal-student');
+  // Sync BS hints for all date fields loaded from existing data
+  syncAdToBs('s-dob','s-dob-np','s-dob-np-hint');
+  syncAdToBs('s-admission','s-admission-bs','s-admission-hint');
+  syncAdToBs('s-feedate','s-feedate-bs','s-feedate-hint');
 }
 
 function renderStudents(){
@@ -2317,37 +2384,46 @@ function adToBs(adDate){
 
 function pad2(n){return String(n).padStart(2,'0')}
 
-function adToNepali(){
-  let adVal=document.getElementById('s-dob').value;
-  let hint=document.getElementById('s-dob-np-hint');
-  if(!adVal){hint.textContent='';return}
-  let d=new Date(adVal+'T00:00:00');
+// ========== BS ↔ AD GENERIC SYNC ==========
+function syncAdToBs(adId, bsId, hintId){
+  let adEl=document.getElementById(adId);
+  let bsEl=document.getElementById(bsId);
+  let hint=document.getElementById(hintId);
+  if(!adEl||!bsEl)return;
+  let val=adEl.value;
+  if(!val){if(hint)hint.textContent='';bsEl.value='';return;}
+  let d=new Date(val+'T00:00:00');
   let bs=adToBs(d);
   if(bs){
-    let str=`${bs.year}-${pad2(bs.month)}-${pad2(bs.day)}`;
-    document.getElementById('s-dob-np').value=str;
-    hint.textContent=`≈ ${bs.year} BS`;
+    bsEl.value=`${bs.year}-${pad2(bs.month)}-${pad2(bs.day)}`;
+    if(hint)hint.textContent=`≈ ${bs.year} BS`;
   } else {
-    hint.textContent='Date out of supported range';
+    bsEl.value='';
+    if(hint)hint.textContent='Out of range';
   }
 }
 
-function nepaliToAd(){
-  let val=document.getElementById('s-dob-np').value.trim();
-  let hint=document.getElementById('s-dob-np-hint');
-  // Accept YYYY-MM-DD or YYYY/MM/DD
+function syncBsToAd(bsId, adId, hintId){
+  let bsEl=document.getElementById(bsId);
+  let adEl=document.getElementById(adId);
+  let hint=document.getElementById(hintId);
+  if(!bsEl||!adEl)return;
+  let val=bsEl.value.trim();
   let m=val.match(/^(\d{4})[-\/](\d{1,2})[-\/](\d{1,2})$/);
-  if(!m){hint.textContent='';return}
-  let by=parseInt(m[1]),bm=parseInt(m[2]),bd=parseInt(m[3]);
-  let ad=bsToAd(by,bm,bd);
+  if(!m){if(hint)hint.textContent='';return;}
+  let ad=bsToAd(parseInt(m[1]),parseInt(m[2]),parseInt(m[3]));
   if(ad){
     let adStr=ad.toISOString().slice(0,10);
-    document.getElementById('s-dob').value=adStr;
-    hint.textContent=`≈ ${adStr} AD`;
+    adEl.value=adStr;
+    if(hint)hint.textContent=`≈ ${adStr} AD`;
   } else {
-    hint.textContent='Date out of supported range';
+    if(hint)hint.textContent='Out of range';
   }
 }
+
+// Legacy DOB wrappers (used by s-dob / s-dob-np inline handlers)
+function adToNepali(){syncAdToBs('s-dob','s-dob-np','s-dob-np-hint')}
+function nepaliToAd(){syncBsToAd('s-dob-np','s-dob','s-dob-np-hint')}
 
 
 function editBlock(id){
